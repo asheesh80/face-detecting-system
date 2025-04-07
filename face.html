@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Simple Face Detection</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin: 0;
+      padding: 20px;
+    }
+
+    .camera {
+      position: relative;
+      display: inline-block;
+    }
+
+    video, canvas {
+      width: 640px;
+      height: 480px;
+      border: 1px solid #333;
+    }
+
+    canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+  </style>
+</head>
+<body>
+  <h1>Simple Face Detection</h1>
+  <div class="camera">
+    <video id="video" autoplay></video>
+    <canvas id="canvas"></canvas>
+  </div>
+
+  <script>
+    const video = document.getElementById('video');
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
+
+    // Start the webcam stream
+    async function startCamera() {
+      const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+      video.srcObject = stream;
+    }
+
+    // Placeholder for face detection - draw a simple rectangle
+    function detectFaces() {
+      const width = video.videoWidth;
+      const height = video.videoHeight;
+      canvas.width = width;
+      canvas.height = height;
+
+      // Simulating detection logic
+      ctx.clearRect(0, 0, width, height);
+      ctx.strokeStyle = 'red';
+      ctx.lineWidth = 2;
+      ctx.strokeRect(width / 3, height / 4, width / 3, height / 2); // Draw a rectangle
+    }
+
+    // Initialize detection
+    function init() {
+      startCamera();
+      video.addEventListener('play', () => {
+        setInterval(detectFaces, 100); // Mock face detection every 100ms
+      });
+    }
+
+    init();
+  </script>
+</body>
+</html>
